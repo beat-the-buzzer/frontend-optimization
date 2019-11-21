@@ -100,3 +100,47 @@ Put CSS at the top(把CSS放在顶部)
   Content-Encoding: gzip
   ```
 
+#### 解读雅虎军规（下篇）
+
+1、JavaScript
+
+Put Script at the Bottom (把JS放在底部)
+
+JavaScript会阻塞浏览器运行
+
+Make JavaScript and CSS External(使用外部的JS和CSS)
+
+外部的JS和CSS会被浏览器缓存，内联的JS和CSS减少了HTTP请求，但增加了HTML文档的大小。所以，使用内联还是外部引用取决于JS、CSS被缓存和HTML被请求的频率。
+
+Minify Javascript and CSS(压缩JS和CSS)
+
+压缩就是删除代码中不必要的字符来减小文件大小，从而提高加载熟读。当代码被压缩时，注释删除，不需要的空格也会被删除。一般我们会在发布生产的时候去进行编译、压缩、混淆等操作。不过有个缺点，就是一旦出现生产bug，就提升了排查bug的难度。
+
+Remove Duplicate Script(删除重复的脚本)
+
+引入重复脚本，会有不必要的http请求，浪费js执行时间。
+
+Minimize DOM Access(最小化DOM访问)
+
+之前的JQuery提供了方便的DOM访问API，使得我们在项目中可以轻松操作DOM，但是当项目越来越大的时候，性能就会越来越差。所以，在开发的时候，我们可以：
+
+a、缓存访问过的元素引用，例如： var dom = document.getElementById('dom');
+
+b、在DOM树外更新节点，然后添加到DOM树，React、Vue
+
+c、避免用js去实现布局，能用CSS解决就用CSS解决
+
+Develop Smart Event Handlers(事件处理)
+
+使用事件委托；处理事件可以在DomContentLoad里面去执行。
+
+性能优化指标里有一个可操作时间，就是页面上元素的用户感知。
+
+2、Content
+
+Preload Components (预加载组件)
+
+我们可以利用浏览器的空余时间去请求将来会用到的组件。例如，我在进入登录页面的时候，可以预先加载好首页要用到的一部分组件，然后在用户登录完成跳转到首页的时候，去加载这些已经预加载好的组件，这样就能够减少白屏时间。
+
+> 随着Vue、React等框架的流行，雅虎军规中的一些方法已经不再适用，但是这些优化方法背后的思想，是值得去学习的。Vue和React也正是深入贯彻雅虎某条军规的思想，才能在框架中脱颖而出。
+
